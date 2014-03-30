@@ -32,7 +32,7 @@
 - (NSArray *)annotations {
     // Empire State Building
     JPSThumbnail *empire = [[JPSThumbnail alloc] init];
-    empire.image = [UIImage imageNamed:@"empire.jpg"];
+    empire.imgUrl = @"https://raw.githubusercontent.com/garixi/JPSThumbnailAnnotation/master/Demo/empire.jpg";
     empire.title = @"Empire State Building";
     empire.subtitle = @"NYC Landmark";
     empire.coordinate = CLLocationCoordinate2DMake(40.75f, -73.99f);
@@ -40,7 +40,7 @@
     
     // Apple HQ
     JPSThumbnail *apple = [[JPSThumbnail alloc] init];
-    apple.image = [UIImage imageNamed:@"apple.jpg"];
+    empire.imgUrl = @"https://raw.githubusercontent.com/garixi/JPSThumbnailAnnotation/master/Demo/apple.jpg";
     apple.title = @"Apple HQ";
     apple.subtitle = @"Apple Headquarters";
     apple.coordinate = CLLocationCoordinate2DMake(37.33f, -122.03f);
@@ -48,7 +48,7 @@
     
     // Parliament of Canada
     JPSThumbnail *ottawa = [[JPSThumbnail alloc] init];
-    ottawa.image = [UIImage imageNamed:@"ottawa.jpg"];
+    empire.imgUrl = @"https://raw.githubusercontent.com/garixi/JPSThumbnailAnnotation/master/Demo/ottowa.jpg";
     ottawa.title = @"Parliament of Canada";
     ottawa.subtitle = @"Oh Canada!";
     ottawa.coordinate = CLLocationCoordinate2DMake(45.43f, -75.70f);
