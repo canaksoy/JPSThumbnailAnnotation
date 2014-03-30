@@ -12,6 +12,6 @@ Pod::Spec.new do |s|
 
   s.source_files = 'JPSThumbnailAnnotation/*.{h,m}'
   s.frameworks   = 'QuartzCore', 'MapKit', 'CoreLocation'
-  s.dependency   = 'SDWebImage'
   s.requires_arc = true
+  s.dependency   = 'SDWebImage'
 end
