@@ -7,13 +7,7 @@
 //
 
 #import "JPSThumbnailAnnotation.h"
-
-@interface JPSThumbnailAnnotation ()
-
-@property (nonatomic, readwrite) JPSThumbnailAnnotationView *view;
-@property (nonatomic, readonly) JPSThumbnail *thumbnail;
-
-@end
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @implementation JPSThumbnailAnnotation
 
@@ -21,36 +15,50 @@
     return [[self alloc] initWithThumbnail:thumbnail];
 }
 
+
 - (id)initWithThumbnail:(JPSThumbnail *)thumbnail {
     self = [super init];
     if (self) {
         _coordinate = thumbnail.coordinate;
         _thumbnail = thumbnail;
     }
+    
     return self;
 }
 
 - (MKAnnotationView *)annotationViewInMap:(MKMapView *)mapView {
-    if (!self.view) {
-        self.view = (JPSThumbnailAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:kJPSThumbnailAnnotationViewReuseID];
-        if (!self.view) self.view = [[JPSThumbnailAnnotationView alloc] initWithAnnotation:self];
+    if (!_view) {
+        _view = (JPSThumbnailAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"JPSThumbnailAnnotationView"];
+        if (!_view) _view = [[JPSThumbnailAnnotationView alloc] initWithAnnotation:self];
     } else {
-        self.view.annotation = self;
+        _view.annotation = self;
     }
-    [self updateThumbnail:self.thumbnail animated:NO];
-    return self.view;
+    [self updateThumbnail:_thumbnail animated:NO];
+    return _view;
 }
 
 - (void)updateThumbnail:(JPSThumbnail *)thumbnail animated:(BOOL)animated {
     if (animated) {
         [UIView animateWithDuration:0.33f animations:^{
-            _coordinate = thumbnail.coordinate; // use ivar to avoid triggering setter
+            _coordinate = thumbnail.coordinate;
         }];
     } else {
-        _coordinate = thumbnail.coordinate; // use ivar to avoid triggering setter
+        _coordinate = thumbnail.coordinate;
     }
     
-    [self.view updateWithThumbnail:thumbnail];
+    if (_view) {
+        _view.coordinate = self.coordinate;
+        _view.titleLabel.text = thumbnail.title;
+        _view.subtitleLabel.text = thumbnail.subtitle;
+        //
+        //_view.imageView.image = thumbnail.image;
+        if(thumbnail.imgUrl){
+            [_view.imageView setImageWithURL:[NSURL URLWithString:thumbnail.imgUrl]];
+        }
+        
+        
+        _view.disclosureBlock = thumbnail.disclosureBlock;
+    }
 }
 
 @end

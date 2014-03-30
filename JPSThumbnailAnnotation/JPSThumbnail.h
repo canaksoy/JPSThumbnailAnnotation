@@ -1,22 +1,24 @@
 //
 //  JPSThumbnail.h
 //  JPSThumbnailAnnotation
+//  Created by Giovanni Arixi
+//  Original Created by Jean-Pierre Simard on 4/22/13.
 //
-//  Created by Jean-Pierre Simard on 4/22/13.
 //  Copyright (c) 2013 JP Simard. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-@import MapKit;
+#import <MapKit/MapKit.h>
 
 typedef void (^ActionBlock)();
 
 @interface JPSThumbnail : NSObject
 
 @property (nonatomic, strong) UIImage *image;
-@property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *subtitle;
-@property (nonatomic, assign) CLLocationCoordinate2D coordinate;
-@property (nonatomic, copy) ActionBlock disclosureBlock;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *subtitle;
+@property (nonatomic, strong) NSString *imgUrl;
+@property (nonatomic, readwrite) CLLocationCoordinate2D coordinate;
+@property (nonatomic, strong) ActionBlock disclosureBlock;
 
 @end
