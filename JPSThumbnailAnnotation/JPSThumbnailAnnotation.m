@@ -7,7 +7,8 @@
 //
 
 #import "JPSThumbnailAnnotation.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+//#import <SDWebImage/UIImageView+WebCache.h>
+#import "UIImageView+AFNetworking.h"
 
 @implementation JPSThumbnailAnnotation
 
@@ -53,7 +54,13 @@
         //
         //_view.imageView.image = thumbnail.image;
         if(thumbnail.imgUrl){
-            [_view.imageView setImageWithURL:[NSURL URLWithString:thumbnail.imgUrl]];
+            //[_view.imageView setImageWithURL:[NSURL URLWithString:thumbnail.imgUrl]];
+            
+            NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:thumbnail.imgUrl]];
+            [_view.imageView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                _view.imageView.image = image;
+            } failure:nil];
+            
         }
         
         
